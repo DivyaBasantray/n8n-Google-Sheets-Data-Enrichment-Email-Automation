@@ -290,6 +290,7 @@ An automated email notification is then sent containing the enriched information
                 │  Email Notification │
                 └─────────────────────┘
 
+
 ## 🔐 Security
 
 - Never commit credentials, API keys, OAuth tokens, or private spreadsheet information to GitHub.
@@ -301,6 +302,7 @@ Before uploading the n8n workflow JSON:
 - Use dummy/sample data for demonstration.
 - Never expose API keys in screenshots.
 - Never expose Gmail credentials or OAuth tokens.
+
 
 ## ⚠️ Limitations
 
@@ -348,6 +350,7 @@ Potential improvements include:
 - Add data validation before updating Google Sheets
 - Add Slack or Microsoft Teams notifications
 - Create a dashboard for monitoring workflow executions
+
 
 ## 📚 APIs & Resources
 
