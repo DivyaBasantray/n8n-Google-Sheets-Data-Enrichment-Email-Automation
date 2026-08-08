@@ -65,6 +65,7 @@ Instead of manually processing each record, the workflow automatically:
 | **Gmail**              | Automated email notification              |
 | **JSON**               | API response and data exchange            |
 
+
 ## 🔄 Workflow Breakdown
 
 1. Google Sheets - Get Rows
@@ -208,7 +209,7 @@ The email is generated automatically after the workflow completes the API enrich
 
 This creates an end-to-end workflow where the data is not only enriched but also automatically communicated to the relevant recipient.
 
-📊 Before vs After
+## 📊 Before vs After
 
 Before Automation
 
@@ -224,7 +225,8 @@ ID | Name  | Number | Budget | Gender | Nationality | Age
 
 An automated email notification is then sent containing the enriched information.
 
-🧠 Key Concepts Demonstrated
+
+## 🧠 Key Concepts Demonstrated
 
 1. Workflow Automation
 2. REST API Integration
@@ -242,7 +244,7 @@ An automated email notification is then sent containing the enriched information
 14. Workflow Design
 
 
-⚙️ How It Works
+## ⚙️ How It Works
                 ┌─────────────────────┐
                 │    Google Sheets    │
                 │    Input Dataset    │
@@ -283,7 +285,7 @@ An automated email notification is then sent containing the enriched information
                 │  Email Notification │
                 └─────────────────────┘
 
-🔐 Security
+## 🔐 Security
 
 - Never commit credentials, API keys, OAuth tokens, or private spreadsheet information to GitHub.
 
@@ -295,7 +297,7 @@ Before uploading the n8n workflow JSON:
 - Never expose API keys in screenshots.
 - Never expose Gmail credentials or OAuth tokens.
 
-⚠️ Limitations
+## ⚠️ Limitations
 
 - The APIs used in this project provide statistical predictions, not verified personal information.
 
@@ -322,7 +324,7 @@ The primary purpose of this project is to demonstrate:
 - Automated notifications
 
 
-🚀 Future Improvements
+## 🚀 Future Improvements
 
 Potential improvements include:
 
@@ -342,7 +344,7 @@ Potential improvements include:
 - Add Slack or Microsoft Teams notifications
 - Create a dashboard for monitoring workflow executions
 
-📚 APIs & Resources
+## 📚 APIs & Resources
 
 - Genderize.io: https://genderize.io/
 - Agify.io: https://agify.io/
@@ -350,7 +352,7 @@ Potential improvements include:
 - n8n Documentation: https://docs.n8n.io/
 
   
-👩‍💻 Project Summary
+## 👩‍💻 Project Summary
 
 - This project demonstrates how n8n can be used to orchestrate multiple APIs, enrich structured data, update a data source, and trigger automated notifications from a single workflow.
 
