@@ -175,8 +175,10 @@ After receiving the results from the three APIs, the workflow maps the enriched 
 
 Example Output:
 
-ID	Name	Number	Budget	Gender	Nationality	Age
-1	Divya	12345	$50k	female	IN	32
+| ID | Name  | Number | Budget | Gender | Nationality | Age |
+| -- | ----- | ------ | ------ | ------ | ----------- | --- |
+| 1  | Divya | 12345  | $50k   | female | IN          | 32  |
+
 
 The record is automatically updated without manually entering the additional information.
 
