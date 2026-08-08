@@ -151,7 +151,7 @@ Example response:
 {
   "name": "Divya",
   "country": [
-    {
+      {
       "country_id": "IN",
       "probability": 0.713
     },
@@ -216,15 +216,17 @@ This creates an end-to-end workflow where the data is not only enriched but also
 
 Before Automation:
 
-ID | Name  | Number | Budget | Gender | Nationality | Age
-----------------------------------------------------------
-1  | Divya | 12345  | $50k   |        |              |
+| ID | Name  | Number | Budget | Gender | Nationality | Age |
+| -- | ----- | ------ | ------ | ------ | ----------- | --- |
+| 1  | Divya | 12345  | $50k   |        |             |     |
+
 
 After Automation:
 
-ID | Name  | Number | Budget | Gender | Nationality | Age
-----------------------------------------------------------
-1  | Divya | 12345  | $50k   | female | IN           | 32
+| ID | Name  | Number | Budget | Gender | Nationality | Age |
+| -- | ----- | ------ | ------ | ------ | ----------- | --- |
+| 1  | Divya | 12345  | $50k   | female | IN          | 32  |
+
 
 An automated email notification is then sent containing the enriched information.
 
