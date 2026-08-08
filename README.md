@@ -211,15 +211,16 @@ The email is generated automatically after the workflow completes the API enrich
 
 This creates an end-to-end workflow where the data is not only enriched but also automatically communicated to the relevant recipient.
 
+
 ## 📊 Before vs After
 
-Before Automation
+Before Automation:
 
 ID | Name  | Number | Budget | Gender | Nationality | Age
 ----------------------------------------------------------
 1  | Divya | 12345  | $50k   |        |              |
 
-After Automation
+After Automation:
 
 ID | Name  | Number | Budget | Gender | Nationality | Age
 ----------------------------------------------------------
