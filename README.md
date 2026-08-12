@@ -291,19 +291,6 @@ An automated email notification is then sent containing the enriched information
                 └─────────────────────┘
 
 
-## 🔐 Security
-
-- Never commit credentials, API keys, OAuth tokens, or private spreadsheet information to GitHub.
-
-Before uploading the n8n workflow JSON:
-
-- Remove or replace credential references where necessary.
-- Do not include private Google Sheets data.
-- Use dummy/sample data for demonstration.
-- Never expose API keys in screenshots.
-- Never expose Gmail credentials or OAuth tokens.
-
-
 ## ⚠️ Limitations
 
 - The APIs used in this project provide statistical predictions, not verified personal information.
