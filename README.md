@@ -318,27 +318,6 @@ The primary purpose of this project is to demonstrate:
 - Automated notifications
 
 
-## 🚀 Future Improvements
-
-Potential improvements include:
-
-- Add API error handling
-- Add retry logic for failed requests
-- Handle API rate limits
-- Validate empty or invalid names
-- Store prediction probabilities
--Convert country codes into country names
-- Process multiple spreadsheet records
-- Add duplicate detection
-- Add workflow execution logging
-- Schedule automatic workflow execution
-- Add conditional email notifications
-- Add confidence thresholds
-- Add data validation before updating Google Sheets
-- Add Slack or Microsoft Teams notifications
-- Create a dashboard for monitoring workflow executions
-
-
 ## 📚 APIs & Resources
 
 - Genderize.io: https://genderize.io/
