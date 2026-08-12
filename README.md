@@ -69,7 +69,7 @@ Instead of manually processing each record, the workflow automatically:
 
 ## 🔄 Workflow Breakdown
 
-1. Google Sheets - Get Rows
+### 1. Google Sheets - Get Rows
 
 The workflow begins by connecting to a Google Sheets document.
 
@@ -80,7 +80,7 @@ Example input:
 | 1  | Divya | 12345  | $50k   |        |             |     |
 
 
-2. Genderize.io API
+### 2. Genderize.io API
 
 The person's name is dynamically passed to the Genderize API using an HTTP GET request.
 
@@ -108,7 +108,7 @@ Genderize provides a probability score, meaning the result represents a statisti
 API Documentation: https://genderize.io/documentation/api/reference
 
 
-3. Agify.io API
+### 3. Agify.io API
 
 The name is then passed to the Agify API to obtain an estimated age.
 
@@ -138,7 +138,7 @@ API Documentation:
 https://agify.io/documentation/api/reference
 
 
-4. Nationalize.io API
+### 4. Nationalize.io API
 
 The same name is sent to the Nationalize API to obtain likely country associations.
 
@@ -174,7 +174,7 @@ API Documentation:
 https://nationalize.io/documentation/api/reference
 
 
-5. Google Sheets - Append / Update Row
+### 5. Google Sheets - Append / Update Row
 
 After receiving the results from the three APIs, the workflow maps the enriched information back to the corresponding Google Sheets record.
 
@@ -188,7 +188,7 @@ Example Output:
 The record is automatically updated without manually entering the additional information.
 
 
-6. Automated Email Notification
+### 6. Automated Email Notification
 
 After the Google Sheets record is updated, the workflow triggers an email notification using the Gmail node.
 
