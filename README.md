@@ -79,6 +79,7 @@ Example input:
 | -- | ----- | ------ | ------ | ------ | ----------- | --- |
 | 1  | Divya | 12345  | $50k   |        |             |     |
 
+
 2. Genderize.io API
 
 The person's name is dynamically passed to the Genderize API using an HTTP GET request.
@@ -105,6 +106,7 @@ The workflow extracts the predicted gender and uses it to enrich the original re
 Genderize provides a probability score, meaning the result represents a statistical prediction rather than a verified personal attribute.
 
 API Documentation: https://genderize.io/documentation/api/reference
+
 
 3. Agify.io API
 
@@ -134,6 +136,7 @@ This demonstrates an important limitation of name-based statistical prediction.
 
 API Documentation:
 https://agify.io/documentation/api/reference
+
 
 4. Nationalize.io API
 
@@ -170,6 +173,7 @@ The workflow uses the relevant country information to enrich the Google Sheets r
 API Documentation:
 https://nationalize.io/documentation/api/reference
 
+
 5. Google Sheets - Append / Update Row
 
 After receiving the results from the three APIs, the workflow maps the enriched information back to the corresponding Google Sheets record.
@@ -182,6 +186,7 @@ Example Output:
 
 
 The record is automatically updated without manually entering the additional information.
+
 
 6. Automated Email Notification
 
