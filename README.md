@@ -1,355 +1,281 @@
-# 🔄 n8n Google Sheets Data Enrichment & Email Automation
+# 🏠 Real Estate Client Data Enrichment Automation
 
-An end-to-end **n8n automation workflow** that reads records from Google Sheets, enriches them using multiple external REST APIs, updates the original spreadsheet, and automatically sends the enriched information through email.
+An **n8n automation workflow** that enriches real estate client data using external APIs, updates the results in Google Sheets, and sends the final client information through email.
 
-This project demonstrates **workflow automation, REST API integration, JSON data handling, Google Sheets integration, data enrichment, dynamic field mapping, and automated email notifications**.
+The workflow starts with basic client details such as **ID, name, phone number, and budget**. It then uses external APIs to automatically fetch the client's **gender and estimated age** based on their name, stores the enriched information back in Google Sheets, and sends the details through email.
 
 ---
 
-
 ## 📌 Project Overview
 
-The workflow starts with a Google Sheet containing basic information about a record.
+In a real estate workflow, client information may initially contain only basic details:
 
-For each record, the workflow uses the person's name to retrieve statistical predictions for:
+* Client ID
+* Name
+* Phone Number
+* Budget
 
-- Gender
-- Age
-- Nationality
+Instead of manually researching or entering additional information, this workflow automates the enrichment process.
 
-The enriched information is then written back to Google Sheets and an automated email is sent containing the results.
+Using **n8n**, the workflow:
 
-### Complete Workflow
+1. Reads client records from Google Sheets.
+2. Sends the client's name to a gender prediction API.
+3. Sends the client's name to an age prediction API.
+4. Combines the API results with the original client information.
+5. Updates the enriched record in Google Sheets.
+6. Sends the completed client details through Gmail.
+
+This creates a simple end-to-end data enrichment pipeline with minimal manual intervention.
+
+---
+
+## 🔄 Workflow
 
 ```text
-Google Sheets
+Manual Trigger
       ↓
-Get Rows
+Get Rows from Google Sheets
       ↓
-Genderize.io API
+Gender API Request
       ↓
-Agify.io API
+Age API Request
       ↓
-Nationalize.io API
+Append / Update Row in Google Sheets
       ↓
-Append / Update Google Sheets
-      ↓
-Send Email
-
+Send Client Details via Gmail
 ```
 
-## 🎯 Objective
+---
 
-The objective of this project was to build an automated data enrichment and notification pipeline using n8n.
+## 🛠️ Tools & Technologies
 
-Instead of manually processing each record, the workflow automatically:
+* **n8n** - Workflow automation and orchestration
+* **Google Sheets** - Client data storage
+* **Genderize API** - Gender prediction based on name
+* **Agify API** - Age prediction based on name
+* **HTTP Request nodes** - API integration
+* **Gmail** - Automated email notification
 
-1. Retrieves data from Google Sheets.
-2. Extracts the person's name.
-3. Sends the name to the Genderize API.
-4. Retrieves an estimated age using the Agify API.
-5. Retrieves likely country associations using the Nationalize API.
-6. Maps the API responses into the appropriate Google Sheets columns.
-7. Updates the original record.
-8. Sends an automated email containing the enriched information.
+---
 
-## 🛠️ Technologies Used
+## 📊 Input Data
 
-| Technology             | Purpose                                   |
-| ---------------------- | ----------------------------------------- |
-| **n8n**                | Workflow automation and API orchestration |
-| **Google Sheets**      | Input and output data source              |
-| **HTTP Request Nodes** | REST API integration                      |
-| **Genderize.io**       | Statistical gender prediction             |
-| **Agify.io**           | Statistical age estimation                |
-| **Nationalize.io**     | Statistical nationality prediction        |
-| **Gmail**              | Automated email notification              |
-| **JSON**               | API response and data exchange            |
+The initial Google Sheet contains basic client information:
 
+| ID | Name           | Number | Budget |
+| -- | -------------- | ------ | ------ |
+| 1  | Divya          | 89539  | $50k   |
+| 2  | Carlos Mendoza | 67890  | $35k   |
+| 3  | Yuki Tanaka    | 24681  | $72k   |
 
-## 🔄 Workflow Breakdown
+The workflow uses the **Name** field as the primary input for the external APIs.
 
-### 1. Google Sheets - Get Rows
+---
 
-The workflow begins by connecting to a Google Sheets document.
+## 🔍 API-Based Data Enrichment
 
-Example input:
+### 1. Gender Prediction
 
-| ID | Name  | Number | Budget | Gender | Nationality | Age |
-| -- | ----- | ------ | ------ | ------ | ----------- | --- |
-| 1  | Divya | 12345  | $50k   |        |             |     |
-
-
-### 2. Genderize.io API
-
-The person's name is dynamically passed to the Genderize API using an HTTP GET request.
-
-Endpoint:
-
-https://api.genderize.io
-
-Query Parameter:
-
-name={{ $json.name }}
-
-Example response:
-
-{
-  "name": "Divya",
-  "gender": "female",
-  "probability": 0.99,
-  "count": 7737
-}
-
-The workflow extracts the predicted gender and uses it to enrich the original record.
-
-Genderize provides a probability score, meaning the result represents a statistical prediction rather than a verified personal attribute.
-
-API Documentation: https://genderize.io/documentation/api/reference
-
-
-### 3. Agify.io API
-
-The name is then passed to the Agify API to obtain an estimated age.
-
-Endpoint:
-
-https://api.agify.io
-
-Query Parameter:
-
-name={{ $json.name }}
-
-Example response:
-
-{
-  "name": "Divya",
-  "age": 32,
-  "count": 1287
-}
-
-The returned age is a statistical estimate based on patterns associated with the name.
-
-For example, when testing the name Divya, the API estimated an age of 32, even though the actual age of the person used for testing was 25.
-
-This demonstrates an important limitation of name-based statistical prediction.
-
-API Documentation:
-https://agify.io/documentation/api/reference
-
-
-### 4. Nationalize.io API
-
-The same name is sent to the Nationalize API to obtain likely country associations.
-
-Endpoint:
-
-https://api.nationalize.io
-
-Query Parameter:
-
-name={{ $json.name }}
-
-Example response:
-
-{
-  "name": "Divya",
-  "country": [
-      {
-      "country_id": "IN",
-      "probability": 0.713
-    },
-    {
-      "country_id": "US",
-      "probability": 0.063
-    }
-  ]
-}
-
-The API returns multiple possible countries along with their probabilities.
-
-The workflow uses the relevant country information to enrich the Google Sheets record.
-
-API Documentation:
-https://nationalize.io/documentation/api/reference
-
-
-### 5. Google Sheets - Append / Update Row
-
-After receiving the results from the three APIs, the workflow maps the enriched information back to the corresponding Google Sheets record.
-
-Example Output:
-
-| ID | Name  | Number | Budget | Gender | Nationality | Age |
-| -- | ----- | ------ | ------ | ------ | ----------- | --- |
-| 1  | Divya | 12345  | $50k   | female | IN          | 32  |
-
-
-The record is automatically updated without manually entering the additional information.
-
-
-### 6. Automated Email Notification
-
-After the Google Sheets record is updated, the workflow triggers an email notification using the Gmail node.
-
-The email contains the enriched information generated by the workflow.
+The workflow sends the client's name to the **Genderize API** through an HTTP Request node.
 
 Example:
 
-Subject: New Client
+```text
+GET https://api.genderize.io/
+```
 
+The client's name is passed dynamically as a query parameter:
+
+```text
+name = {{$json.Name}}
+```
+
+The API returns information such as:
+
+```json
+{
+  "name": "Divya",
+  "gender": "female",
+  "probability": 0.99
+}
+```
+
+The workflow extracts the `gender` value and passes it to the next step.
+
+---
+
+### 2. Age Prediction
+
+The client's name is then sent to the **Agify API**.
+
+Example:
+
+```text
+GET https://api.agify.io/
+```
+
+The name is again passed dynamically:
+
+```text
+name = {{$json.Name}}
+```
+
+Example response:
+
+```json
+{
+  "count": 1287,
+  "name": "Divya",
+  "age": 32
+}
+```
+
+The workflow extracts the estimated `age`.
+
+---
+
+## 🗂️ Enriched Google Sheet
+
+After both API requests are completed, the original client record is combined with the API results.
+
+The final Google Sheet contains:
+
+| ID | Name           | Number | Budget | Gender | Age |
+| -- | -------------- | ------ | ------ | ------ | --- |
+| 1  | Divya          | 89539  | $50k   | female | 32  |
+| 2  | Carlos Mendoza | 67890  | $35k   | male   | 51  |
+| 3  | Yuki Tanaka    | 24681  | $72k   | female | 40  |
+
+The **Append or Update Row** node maps the existing client fields along with the newly retrieved gender and age values.
+
+This prevents the API results from remaining isolated and keeps the enriched information stored with the original client record.
+
+---
+
+## 📧 Automated Email Notification
+
+Once the Google Sheet has been updated, the workflow sends the client details through **Gmail**.
+
+The email is dynamically generated using the values from the workflow.
+
+Example:
+
+```text
 Hey Divya,
 
-A new client has signed up. The details are below.
+A new client Divya has signed up. The details are below.
 
-Number: 12345
+Number: 89539
 Budget: $50k
 
-Predicted gender: female
-Estimated age: 32
-Predicted nationality: IN
+Below are the expected gender and age:
 
-Do make sure to connect with her at 12345.
+Gender: female
+Age: 32
 
-Thanks!
+Do make sure to connect with her at 89539.
 
-The email is generated automatically after the workflow completes the API enrichment and spreadsheet update.
+Thanks,
+Your awesome workflow.
+```
 
-This creates an end-to-end workflow where the data is not only enriched but also automatically communicated to the relevant recipient.
+Because the email uses n8n expressions, the content changes automatically for every client record.
 
+---
 
-## 📊 Before vs After
+## ⚙️ Key n8n Concepts Used
 
-Before Automation:
+### 🔹 Google Sheets Integration
 
-| ID | Name  | Number | Budget | Gender | Nationality | Age |
-| -- | ----- | ------ | ------ | ------ | ----------- | --- |
-| 1  | Divya | 12345  | $50k   |        |             |     |
+Used to read existing client records and write the enriched results back to the spreadsheet.
 
+### 🔹 HTTP Request Nodes
 
-After Automation:
+Used to communicate with external APIs and retrieve additional client attributes.
 
-| ID | Name  | Number | Budget | Gender | Nationality | Age |
-| -- | ----- | ------ | ------ | ------ | ----------- | --- |
-| 1  | Divya | 12345  | $50k   | female | IN          | 32  |
+### 🔹 Dynamic Expressions
 
+n8n expressions are used to pass values between nodes dynamically.
 
-An automated email notification is then sent containing the enriched information.
+For example:
 
+```text
+{{$json.Name}}
+```
 
-## 🧠 Key Concepts Demonstrated
+and:
 
-1. Workflow Automation
-2. REST API Integration
-3. HTTP GET Requests
-4. API Orchestration
-5. Google Sheets Integration
-6. Gmail Integration
-7. JSON Data Handling
-8. Dynamic Data Mapping
-9. Data Enrichment
-10. API Response Parsing
-11. Automated Notifications
-12. External Service Integration
-13. No-Code / Low-Code Automation
-14. Workflow Design
+```text
+{{$('HTTP Gender Request').item.json.gender}}
+```
 
+This allows each client's information to flow through the workflow without manually entering values.
 
-## ⚙️ How It Works
-                ┌─────────────────────┐
-                │    Google Sheets    │
-                │    Input Dataset    │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │   Get Rows in Sheet │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │   Genderize.io API  │
-                │  Gender Prediction  │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │     Agify.io API    │
-                │    Age Estimation   │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │  Nationalize.io API │
-                │Nationality Prediction│
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │    Google Sheets    │
-                │  Append / Update    │
-                └──────────┬──────────┘
-                           │
-                           ▼
-                ┌─────────────────────┐
-                │      Gmail Node     │
-                │  Email Notification │
-                └─────────────────────┘
+### 🔹 Data Enrichment
 
+The workflow demonstrates how incomplete records can be enriched with information obtained from external APIs.
 
-## ⚠️ Limitations
+### 🔹 Automated Notifications
 
-- The APIs used in this project provide statistical predictions, not verified personal information.
+The Gmail node generates and sends an email using the processed client data.
 
-Age
+---
 
-- Agify estimates age based on statistical patterns associated with names. The predicted age can therefore differ significantly from someone's actual age.
+## 🎯 What This Automation Solves
 
-Gender
+Without automation, the process would require someone to:
 
-- Genderize predicts the gender statistically associated with a name. It should not be interpreted as determining an individual's actual gender identity.
+1. Open the client spreadsheet.
+2. Look up each client's information.
+3. Retrieve additional details from external sources.
+4. Update the spreadsheet manually.
+5. Prepare an email.
+6. Send the client information.
 
-Nationality
+With n8n, these steps are connected into a single workflow.
 
-- Nationalize predicts countries statistically associated with a name. A person's name does not necessarily indicate their actual nationality.
+**Input → API Enrichment → Data Update → Email Notification**
 
-- Therefore, the results should be treated as API-generated estimates and probabilities, not factual personal attributes.
+This reduces repetitive work and keeps the client information consistent across the workflow.
 
-The primary purpose of this project is to demonstrate:
+---
 
-- API integration
-- Data enrichment
-- Workflow automation
-- Dynamic data processing
-- Automated notifications
+## 🚀 Workflow Outcome
 
+The final automation provides a simple example of how **n8n can connect spreadsheets, external APIs, and email services into one automated data pipeline**.
 
-## 📚 APIs & Resources
+It demonstrates practical use of:
 
-- Genderize.io: https://genderize.io/
-- Agify.io: https://agify.io/
-- Nationalize.io: https://nationalize.io/
-- n8n Documentation: https://docs.n8n.io/
+* API integration
+* Data enrichment
+* Dynamic data mapping
+* Google Sheets automation
+* Email automation
+* Workflow orchestration
 
-  
-## 👩‍💻 Project Summary
+The project is built around a real estate use case, but the same approach can be adapted for other business workflows where existing records need to be enriched with information from external APIs.
 
-- This project demonstrates how n8n can be used to orchestrate multiple APIs, enrich structured data, update a data source, and trigger automated notifications from a single workflow.
+---
 
-The complete pipeline combines:
+## 📁 Project Structure
 
-Google Sheets
-      +
-n8n
-      +
-REST APIs
-      +
-JSON Data
-      +
-Dynamic Mapping
-      +
-Gmail
-      ↓
-Automated Data Enrichment & Notification
+```text
+Real-Estate-Client-Data-Enrichment/
+│
+├── README.md
+└── workflow/
+    └── n8n-workflow.json
+```
 
-- The project was built as a practical demonstration of workflow automation, API integration, data processing, external service orchestration, and automated communication.
+> Export the n8n workflow as a `.json` file and place it inside the `workflow` folder if you want others to be able to import and test the automation.
+
+---
+
+## 💡 Key Takeaway
+
+This project shows how **n8n can act as the bridge between business data, external APIs, and communication tools**.
+
+A basic client record enters the workflow, external APIs enrich the data, Google Sheets stores the updated information, and Gmail delivers the final result automatically.
+
+**One workflow. Multiple integrations. Less manual work. ⚡**
