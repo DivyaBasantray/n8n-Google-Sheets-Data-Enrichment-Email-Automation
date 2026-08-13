@@ -276,9 +276,9 @@ Real-Estate-Client-Data-Enrichment/
 
 The APIs used in this project provide statistical predictions and estimates, not verified personal information.
 
-Age: The estimated age may differ significantly from the person's actual age.
-Gender: The API predicts the gender statistically associated with a name and does not determine an individual's actual gender identity.
-Nationality: The API predicts countries statistically associated with a name and does not determine a person's actual nationality.
+🔹Age: The estimated age may differ significantly from the person's actual age.
+
+🔹Gender: The API predicts the gender statistically associated with a name and does not determine an individual's actual gender identity.
 
 For example, the API estimated the age associated with the name Divya as 32, while the actual age used for testing was 25.
 
