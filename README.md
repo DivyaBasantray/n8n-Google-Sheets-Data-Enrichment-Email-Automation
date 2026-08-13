@@ -164,17 +164,17 @@ Example:
 ```text
 Hey Divya,
 
-A new client Divya has signed up. The details are below.
+A new client Erik Johansson has signed up. The details are below.
 
-Number: 89539
-Budget: $50k
+Number: 98765
+Budget: $61k
 
 Below are the expected gender and age:
 
-Gender: female
-Age: 32
+Gender: male
+Age: 51
 
-Do make sure to connect with her at 89539.
+Do make sure to connect with him at 98765.
 
 Thanks,
 Your awesome workflow.
