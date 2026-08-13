@@ -286,6 +286,8 @@ This highlights why API-generated predictions should be treated as estimates rat
 
 The primary purpose of this project is to demonstrate API integration, data enrichment, workflow automation, and automated communication.
 
+---
+
 ## 💡 Key Takeaway
 
 This project shows how **n8n can act as the bridge between business data, external APIs, and communication tools**.
