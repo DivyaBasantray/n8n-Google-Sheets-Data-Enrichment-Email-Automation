@@ -272,6 +272,20 @@ Real-Estate-Client-Data-Enrichment/
 
 ---
 
+## ⚠️ Important Limitations
+
+The APIs used in this project provide statistical predictions and estimates, not verified personal information.
+
+Age: The estimated age may differ significantly from the person's actual age.
+Gender: The API predicts the gender statistically associated with a name and does not determine an individual's actual gender identity.
+Nationality: The API predicts countries statistically associated with a name and does not determine a person's actual nationality.
+
+For example, the API estimated the age associated with the name Divya as 32, while the actual age used for testing was 25.
+
+This highlights why API-generated predictions should be treated as estimates rather than factual personal attributes.
+
+The primary purpose of this project is to demonstrate API integration, data enrichment, workflow automation, and automated communication.
+
 ## 💡 Key Takeaway
 
 This project shows how **n8n can act as the bridge between business data, external APIs, and communication tools**.
