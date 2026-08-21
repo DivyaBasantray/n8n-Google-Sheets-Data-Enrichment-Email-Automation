@@ -1,4 +1,4 @@
-# 🏠 Real Estate Client Data Enrichment Automation
+# Real Estate Client Data Enrichment Automation
 
 An **n8n automation workflow** that enriches real estate client data using external APIs, updates the results in Google Sheets, and sends the final client information through email.
 
@@ -6,7 +6,7 @@ The workflow starts with basic client details such as **ID, name, phone number, 
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 In a real estate workflow, client information may initially contain only basic details:
 
@@ -30,7 +30,7 @@ This creates a simple end-to-end data enrichment pipeline with minimal manual in
 
 ---
 
-## 🔄 Workflow
+## Workflow
 
 ```text
 Manual Trigger
@@ -48,7 +48,7 @@ Send Client Details via Gmail
 
 ---
 
-## 🛠️ Tools & Technologies
+## Tools & Technologies
 
 * **n8n** - Workflow automation and orchestration
 * **Google Sheets** - Client data storage
@@ -59,7 +59,7 @@ Send Client Details via Gmail
 
 ---
 
-## 📊 Input Data
+## Input Data
 
 The initial Google Sheet contains basic client information:
 
@@ -73,7 +73,7 @@ The workflow uses the **Name** field as the primary input for the external APIs.
 
 ---
 
-## 🔍 API-Based Data Enrichment
+## API-Based Data Enrichment
 
 ### 1. Gender Prediction
 
@@ -135,7 +135,7 @@ The workflow extracts the estimated `age`.
 
 ---
 
-## 🗂️ Enriched Google Sheet
+## Enriched Google Sheet
 
 After both API requests are completed, the original client record is combined with the API results.
 
@@ -153,7 +153,7 @@ This prevents the API results from remaining isolated and keeps the enriched inf
 
 ---
 
-## 📧 Automated Email Notification
+## Automated Email Notification
 
 Once the Google Sheet has been updated, the workflow sends the client details through **Gmail**.
 
@@ -184,7 +184,7 @@ Because the email uses n8n expressions, the content changes automatically for ev
 
 ---
 
-## ⚙️ Key n8n Concepts Used
+## Key n8n Concepts Used
 
 ### 🔹 Google Sheets Integration
 
@@ -222,7 +222,7 @@ The Gmail node generates and sends an email using the processed client data.
 
 ---
 
-## 🎯 What This Automation Solves
+## What This Automation Solves
 
 Without automation, the process would require someone to:
 
@@ -241,7 +241,7 @@ This reduces repetitive work and keeps the client information consistent across 
 
 ---
 
-## 🚀 Workflow Outcome
+## Workflow Outcome
 
 The final automation provides a simple example of how **n8n can connect spreadsheets, external APIs, and email services into one automated data pipeline**.
 
@@ -258,7 +258,7 @@ The project is built around a real estate use case, but the same approach can be
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 Real-Estate-Client-Data-Enrichment/
@@ -272,7 +272,7 @@ Real-Estate-Client-Data-Enrichment/
 
 ---
 
-## ⚠️ Important Limitations
+## Important Limitations
 
 The APIs used in this project provide statistical predictions and estimates, not verified personal information.
 
@@ -288,10 +288,10 @@ The primary purpose of this project is to demonstrate API integration, data enri
 
 ---
 
-## 💡 Key Takeaway
+## Key Takeaway
 
 This project shows how **n8n can act as the bridge between business data, external APIs, and communication tools**.
 
 A basic client record enters the workflow, external APIs enrich the data, Google Sheets stores the updated information, and Gmail delivers the final result automatically.
 
-**One workflow. Multiple integrations. Less manual work. ⚡**
+**One workflow. Multiple integrations. Less manual work.**
